@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Transition
+        app:constraintSetEnd="@+id/mid_state"
+        app:constraintSetStart="@+id/bottom_state"
+        app:duration="300">
+        <OnSwipe
+            app:touchAnchorId="@id/cl_layout"
+            app:dragDirection="dragUp"
+            app:touchAnchorSide="top" />
+    </Transition>
+<!--    <Transition-->
+<!--        app:constraintSetEnd="@+id/top_state"-->
+<!--        app:constraintSetStart="@+id/mid_state"-->
+<!--        app:duration="300">-->
+<!--        <OnSwipe-->
+
+<!--            app:touchAnchorId="@id/cl_layout"-->
+<!--            app:dragDirection="dragUp"-->
+<!--            app:touchAnchorSide="top" />-->
+<!--    </Transition>-->
+    <ConstraintSet android:id="@+id/bottom_state">
+        <Constraint
+            android:id="@+id/rv_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Constraint
+            android:id="@+id/cl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="500dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/tv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="标题"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/rv_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_1" />
+
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/mid_state">
+        <Constraint
+            android:id="@+id/rv_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Constraint
+            android:id="@+id/cl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/tv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="标题"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/rv_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_1" />
+    </ConstraintSet>
+
+<!--    <ConstraintSet android:id="@+id/top_state">-->
+<!--        <Constraint-->
+<!--            android:id="@+id/rv_1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@+id/cl_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@+id/tv_1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="20dp"-->
+<!--            android:text="标题"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@+id/rv_2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_1" />-->
+<!--    </ConstraintSet>-->
+</MotionScene>
