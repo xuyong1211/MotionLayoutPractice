@@ -6,100 +6,61 @@
         app:constraintSetStart="@+id/bottom_state"
         app:duration="300">
         <OnSwipe
-            app:touchAnchorId="@id/cl_layout"
             app:dragDirection="dragUp"
-            app:touchAnchorSide="top" />
+            app:touchAnchorId="@id/tv_1" />
+        <!--        设置touchAnchorId 指滑动MotionLayout内的所有view都可以触发动画
+                   这里需要滑动tv_1 和 rv_2都可以触发,所以设置touchAnchorId tv_1 和 rv_2都可以
+                   之前一直存在触摸rv_2后会回到底部，然后迅速再弹出  这里应该是motionlayout的 bug Recyclerview 的触摸事件down就出发了 motionlayout的动画，手指停留一下有了move事件motionlayout
+                   又根据此滑动操作做跟手动画，所以解决思路就是为RecyclerView 的item 设置点击事件 (要让Recyclerview的子view消费down事件)，down事件就不会被 itemView消费，直到move 判断为滑动手势才会到motionLayout  执行跟手动画-->
+        <!--        原因是RecyclerView 实现了NestedScrollingChild2 上面的异常实在第二次操作才会出现，这时NestedScrollingChild2 和他的父层级NestedScrollingParent关联了
+                    down事件交给了NestedScrollingParent（Motionlayout）消费  所以才会又一闪的回到底部（回到底部的动画一定是motionlayout的操作，所以他一定收到了down事件，所以不要把down事件给他就行了）-->
     </Transition>
-<!--    <Transition-->
-<!--        app:constraintSetEnd="@+id/top_state"-->
-<!--        app:constraintSetStart="@+id/mid_state"-->
-<!--        app:duration="300">-->
-<!--        <OnSwipe-->
-
-<!--            app:touchAnchorId="@id/cl_layout"-->
-<!--            app:dragDirection="dragUp"-->
-<!--            app:touchAnchorSide="top" />-->
-<!--    </Transition>-->
     <ConstraintSet android:id="@+id/bottom_state">
-        <Constraint
-            android:id="@+id/rv_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <Constraint
-            android:id="@+id/cl_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="500dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/tv_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="标题"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/rv_2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_1" />
-
-
+        <Constraint android:id="@+id/rv_1">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/mid_state">
-        <Constraint
-            android:id="@+id/rv_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <Constraint
-            android:id="@+id/cl_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="300dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/tv_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="标题"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/rv_2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_1" />
+        <Constraint android:id="@+id/rv_1">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </Constraint>
+        >
     </ConstraintSet>
 
-<!--    <ConstraintSet android:id="@+id/top_state">-->
-<!--        <Constraint-->
-<!--            android:id="@+id/rv_1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-<!--        <Constraint-->
-<!--            android:id="@+id/cl_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginTop="50dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-<!--        <Constraint-->
-<!--            android:id="@+id/tv_1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="20dp"-->
-<!--            android:text="标题"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-<!--        <Constraint-->
-<!--            android:id="@+id/rv_2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tv_1" />-->
-<!--    </ConstraintSet>-->
+    <!--    <ConstraintSet android:id="@+id/top_state">-->
+    <!--        <Constraint-->
+    <!--            android:id="@+id/rv_1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent" />-->
+    <!--        <Constraint-->
+    <!--            android:id="@+id/cl_layout"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_marginTop="50dp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        <Constraint-->
+    <!--            android:id="@+id/tv_1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:padding="20dp"-->
+    <!--            android:text="标题"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        <Constraint-->
+    <!--            android:id="@+id/rv_2"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tv_1" />-->
+    <!--    </ConstraintSet>-->
 </MotionScene>
