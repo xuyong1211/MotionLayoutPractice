@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
         val rv2 = findViewById<MyRecycletView>(R.id.rv_2)
         rv2.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-        rv2.adapter = SimpleTextAdapter(arrayListOf("content_2","content_2","content_2"))
+        rv2.adapter = SimpleTextAdapter(arrayListOf("content_2","content_2","content_2","content_2","content_2","content_2","content_2","content_2","content_2","content_2","content_2"))
 
     }
 }

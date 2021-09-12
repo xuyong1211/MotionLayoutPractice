@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+<appScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <Transition
-        app:constraintSetEnd="@+id/mid_state"
         app:constraintSetStart="@+id/bottom_state"
+        app:constraintSetEnd="@+id/mid_state"
         app:duration="300">
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/tv_1" />
-        <!--        设置touchAnchorId 指滑动MotionLayout内的所有view都可以触发动画
+            app:touchAnchorId="@id/cl_content"
+            app:touchAnchorSide="top"/>
+        <!--        设置touchAnchorId 指滑动appLayout内的所有view都可以触发动画
                    这里需要滑动tv_1 和 rv_2都可以触发,所以设置touchAnchorId tv_1 和 rv_2都可以
-                   之前一直存在触摸rv_2后会回到底部，然后迅速再弹出  这里应该是motionlayout的 bug Recyclerview 的触摸事件down就出发了 motionlayout的动画，手指停留一下有了move事件motionlayout
-                   又根据此滑动操作做跟手动画，所以解决思路就是为RecyclerView 的item 设置点击事件 (要让Recyclerview的子view消费down事件)，down事件就不会被 itemView消费，直到move 判断为滑动手势才会到motionLayout  执行跟手动画-->
+                   之前一直存在触摸rv_2后会回到底部，然后迅速再弹出  这里应该是applayout的 bug Recyclerview 的触摸事件down就出发了 applayout的动画，手指停留一下有了move事件applayout
+                   又根据此滑动操作做跟手动画，所以解决思路就是为RecyclerView 的item 设置点击事件 (要让Recyclerview的子view消费down事件)，down事件就会被 itemView消费，直到move 判断为滑动手势才会到appLayout  执行跟手动画-->
         <!--        原因是RecyclerView 实现了NestedScrollingChild2 上面的异常实在第二次操作才会出现，这时NestedScrollingChild2 和他的父层级NestedScrollingParent关联了
-                    down事件交给了NestedScrollingParent（Motionlayout）消费  所以才会又一闪的回到底部（回到底部的动画一定是motionlayout的操作，所以他一定收到了down事件，所以不要把down事件给他就行了）-->
+                    down事件交给了NestedScrollingParent（applayout）消费  所以才会又一闪的回到底部（回到底部的动画一定是applayout的操作，所以他一定收到了down事件，所以不要把down事件给他就行了）-->
     </Transition>
-    <ConstraintSet android:id="@+id/bottom_state">
-        <Constraint android:id="@+id/rv_1">
+
+    <Transition
+        app:constraintSetStart="@+id/mid_state"
+        app:constraintSetEnd="@+id/top_state"
+        app:duration="300">
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/cl_content"
+            app:touchAnchorSide="top"/>
+    </Transition>
+    <ConstraintSet android:id="@+id/top_state">
+        <Constraint android:id="@+id/cl_content">
             <Layout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="500dp"
+                app:layout_constraintTop_toTopOf="@id/guild_1"/>
+        </Constraint>
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/bottom_state">
+        <Constraint android:id="@+id/cl_content">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:background="@color/teal_200"
+                app:layout_constraintTop_toTopOf="@id/guild_3"/>
         </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/mid_state">
-        <Constraint android:id="@+id/rv_1">
+        <Constraint android:id="@+id/cl_content">
             <Layout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="300dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="500dp"
+                android:background="@color/teal_200"
+                app:layout_constraintTop_toTopOf="@id/guild_2"/>
         </Constraint>
         >
     </ConstraintSet>
@@ -63,4 +81,4 @@
     <!--            app:layout_constraintBottom_toBottomOf="parent"-->
     <!--            app:layout_constraintTop_toBottomOf="@id/tv_1" />-->
     <!--    </ConstraintSet>-->
-</MotionScene>
+</appScene>
